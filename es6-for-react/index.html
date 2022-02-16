@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Belajar Javascript (ES6)</h1>
+    <div id="root"></div>
+    <button onclick="renderData()">Tampilkan Data Mahasiswa</button>
+    <script>
+        const mahasiswas = [
+    {
+        nama: "jauhar",
+        umur: 19,
+        jurusan: "Sistem Informasi"
+    },
+    {
+        nama: "juned",
+        umur: 20,
+        jurusan: "Bahasa"
+    },
+    {
+        nama: "agung",
+        umur: 22,
+        jurusan: "Sistem Informasi"
+    },
+];
+
+const prosesMahasiswa = (mahasiswa) =>
+    `<p>${mahasiswa.nama} (${mahasiswa.umur}) - <i>${mahasiswa.jurusan}</i></p>`;
+
+const formatMahasiswa = mahasiswas.map(prosesMahasiswa);
+const renderData = () => {
+   return document.getElementById('root').innerHTML = formatMahasiswa.join("");
+}
+    </script>
+</body>
+</html>
