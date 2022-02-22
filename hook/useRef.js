@@ -1,7 +1,7 @@
 const MyApp = () => {
 
   const [judul, setJudul] = React.useState("Belajar Ract");
-  let foo = React.useRef("Hei")
+  let foo = React.useRef("Hei");
   console.log("Rerender");
 
   const handleButtonClick = () => {
