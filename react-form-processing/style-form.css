@@ -1,0 +1,51 @@
+#root {
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    margin-top: 2rem;
+    padding: 2rem 3rem;
+    box-shadow: 8px 8px 0px black;
+    border: 2px solid black;
+}
+
+.container div {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.6rem;
+}
+
+div label:first-child {
+    display: inline-block;
+    width: 180px;
+}
+
+label {
+    vertical-align: top;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+    width: 230px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: 1px solid gray;
+    box-shadow: 2px 2px 2px black;
+    margin: 10px 0;
+}
+
+button:hover {
+    box-shadow: 1px 1px 1px black;
+    background-color: #f1f1f1;
+}
