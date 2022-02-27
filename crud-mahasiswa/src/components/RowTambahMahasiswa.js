@@ -10,12 +10,14 @@ const RowTambahMahasiswa = (props) => {
         asalProvinsi: "",
     });
 
+    // function untuk memeriksa apakah nim ada yang sama
+    const cekDuplikasiNim = () => {
+      return (props.mahasiswas.find((mahasiswa) => mahasiswa.nim === formInput.nim));
+    }
+
     // state untuk data menampung pesan error
     const [errors, setErrors] = useState({
-        nim: "",
-        nama: "",
-        jurusan: "",
-        asalProvinsi: "",
+       ...formInput
     });
 
     // function untuk membuat 2 ways binding antara form dengan state
@@ -34,8 +36,11 @@ const RowTambahMahasiswa = (props) => {
         // validasi nim
         if (formInput.nim.trim() === "") {
             pesanErrors.nim = "Nim tidak boleh kosong";
+        
         } else if (!/^[0-9]{8}$/.test(formInput.nim)) {
             pesanErrors.nim = "Nim harus 8 karakter angka";
+        } else if (cekDuplikasiNim()) {
+          pesanErrors.nim = "Nim sudah dipakai";
         } else {
             pesanErrors.nim = "";
         }
@@ -55,7 +60,7 @@ const RowTambahMahasiswa = (props) => {
 
         // validasi asalProvinsi
         if (formInput.asalProvinsi.trim() === "") {
-            pesanErrors.jurusan = "Asal provinsi tidak boleh kosong";
+            pesanErrors.asalProvinsi = "Asal provinsi tidak boleh kosong";
         } else {
             pesanErrors.asalProvinsi = "";
         }
@@ -72,8 +77,9 @@ const RowTambahMahasiswa = (props) => {
         }
 
         // proses data jika form valid
-        if (formValid) {
+        if (formValid === true) {
             props.onTambahMahasiswa(formInput);
+            // console.log(formInput);
         }
 
         // kosongkan inputan form

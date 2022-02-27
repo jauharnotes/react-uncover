@@ -20,14 +20,36 @@ const RowMahasiswa = (props) => {
   // state untuk penanda "Edit mode"
   const [editStatus, setEditStatus] = useState(false);
 
+  // state untuk menampung nilai form sebelum "Edit mode"
+  const [dataReset, setDataReset] = useState({});
+
   // function untuk membuat 2 ways binding antara form dengan state
   const handleInputChange = (event) => {
-    setFormInput({ ...formInput, [event.target.name]: event.target.value })
+    // setFormInput({ ...formInput, [event.target.name]: event.target.value })
+    setFormInput(prevState => ({...prevState, [event.target.name]: event.target.value}))
   }
 
   // tombol Edit di klik
   const handleEditClick = () => {
+    // simpan data untuk proses reset
+    setDataReset({...formInput});
+
+    // masuk ke "Edit mode"
     setEditStatus(true);
+  }
+
+  // tombol Batal di klik
+  const handleFormReset = (e) => {
+    e.preventDefault();
+
+    // kembalikan isi form ke posisi sebelum tombol edit di klik
+    setFormInput({...dataReset});
+
+    // hapus pesan error (jika ada)
+    setErrors({});
+
+    // keluar dari "Edit mode"
+    setEditStatus(false);
   }
 
   // form di submit
@@ -72,6 +94,7 @@ const RowMahasiswa = (props) => {
 
     // proses data jika form valid
     if (formValid) {
+      props.onEditMahasiswa(formInput);
       setEditStatus(false);
     }
   }
@@ -82,7 +105,7 @@ const RowMahasiswa = (props) => {
       {editStatus ?
         <tr>
           <td colSpan="5">
-            <form onSubmit={handleFormSubmit}>
+            <form onSubmit={handleFormSubmit} onReset={handleFormReset}>
               <div className="row row-cols-5 g-3">
                 <div className="col">
                   <input type="text" className="form-control" disabled
@@ -123,7 +146,8 @@ const RowMahasiswa = (props) => {
           <td>
             <button className="btn btn-secondary me-2"
               onClick={handleEditClick}>Edit</button>
-            <button className="btn btn-danger">Hapus</button>
+            <button className="btn btn-danger" id={formInput.nim}
+            onClick={props.onHapusMahasiswa}>Hapus</button>
           </td>
         </tr>
       }

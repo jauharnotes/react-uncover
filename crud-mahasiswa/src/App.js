@@ -60,6 +60,21 @@ const App = () => {
     // newMahasiswas = mahasiswa masih merujuk ke object yang sama.
   }
 
+  // handler untuk menghapus data mahasiswa di komponent RowMahasiswa
+  const handleHapusMahasiswa = (e) => {
+    // cari index dari mahasiswa yang dihapus berdasarkan nomor nim
+    const result = mahasiswas.findIndex((mahasiswa) => mahasiswa.nim === e.target.id);
+
+    // copy mahasiswa karena fungsi spilice akan mengubah array asal (mutet)
+    const newMahasiswas = mahasiswas;
+    newMahasiswas.splice(result, 1);
+    setMahasiswas([...newMahasiswas]);
+
+    // cara alternatif penghapusan dengan method filter
+    // const newMahasiswas = mahasiswas.filter(mahasiswa => mahasiswa.nim !== e.target.id);
+    // setMahasiswas(newMahasiswas);
+  }
+
   return (
     <div className="container mt-5">
 
@@ -84,6 +99,7 @@ const App = () => {
                     key={mahasiswa.nim}
                     mahasiswa={mahasiswa}
                     onEditMahasiswa={handleEditMahasiswa}
+                    onHapusMahasiswa={handleHapusMahasiswa}
                   />
                 )
               }
