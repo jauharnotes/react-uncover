@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Belajar JavaScript</h1>
+    <script>
+        // konversi JSON ke object
+        let mahasiswaJSON = `{"nim": "18010245", "nama": "Jauharuddin", "jurusan": "Teknik Informatika", "asalProvinsi": "DKI Jakarta"}`
+
+        let mahasiswa = JSON.parse(mahasiswaJSON);
+        console.log(mahasiswa);
+        console.log(mahasiswa.nama);
+
+        // konversi Obeject ke JSON
+        let family = {
+            kakak: "Jauhar",
+            adik1: "Nisa",
+            adik2: "Gita",
+            adik3: "Intan"
+        }
+
+        let familyJSON = JSON.stringify(family);
+        console.log(familyJSON);
+    </script>
+</body>
+</html>
