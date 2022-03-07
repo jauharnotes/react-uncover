@@ -2,6 +2,8 @@ import { useState } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Transaction from "./components/Transaction";
+import SaldoBox from "./components/SaldoBox";
+import AddTransaction from "./components/AddTransaction";
 
 const initTransactions = [
     {
@@ -26,11 +28,38 @@ const initTransactions = [
 
 const App = () => {
     const [transactions, setTransaction] = useState(initTransactions);
-    console.log(transactions);
+    
+    // handler untuk menambah transaction,
+    // akan di-triger dari komponen AddTransaction
+    const hanleTambahTransaction = (data) => {
+      let newTransactions = [
+        ...transactions, data
+      ];
+
+      // atur ulang urutan transaction agar tanggal terkecil di bagi atas
+      newTransactions.sort((a, b) => a.tanggal - b.tanggal);
+
+      setTransaction(newTransactions);
+    }
+
+    // handler untuk menghapus data transaction di komponen AddTransaction
+    const handleHapusTransaction = (e) => {
+      // cari index transaction yang akan dihapus berdasarkan id
+      const result = transactions.findIndex(
+        transaction => (transaction.id === e.target.id)
+      );
+      // copy transaction karena fungsi splice akan mengubah array asal (mutate)
+      const newTransactions = transactions;
+      newTransactions.splice(result, 1);
+      setTransaction([...newTransactions]);
+    }
+    
   return (
     <>
       <Header />
-      <Transaction transactions={transactions}/>
+      <SaldoBox transactions={transactions}/>
+      <Transaction transactions={transactions} onHapusTransaction={handleHapusTransaction}/>
+      <AddTransaction onTambahTransaction={hanleTambahTransaction}/>
       <Footer />
     </>
   );
