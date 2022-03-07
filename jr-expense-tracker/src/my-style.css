@@ -2,6 +2,8 @@
 /*    Global Style    */
 /* ================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=ZCOOL+QingKe+HuangYou&display=swap');
+
 :root{
     --warna-pemasukan : #1dcc70;
     --warna-pengeluaran : #ff396f;
@@ -15,6 +17,7 @@
   }
   
   body {
+    font-family: 'Poppins', sans-serif;
     background-color: whitesmoke;
   }
   
@@ -31,6 +34,10 @@
     color: white;
     height: 200px;
     z-index: 1;
+  }
+
+  .logo {
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
   }
   
   
