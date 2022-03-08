@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asyn Await</title>
+</head>
+<body>
+    <h1>Bwlajar Fect API</h1>
+    <script>
+        // const myFetch = async () => {
+        //     let response = await fetch('https://reqres.in/api/users/5');
+        //     let data = await response.json();
+        //     let user = data.data;
+
+        //     console.log(user.avatar);
+        //     console.log(user.email);
+        //     console.log(user.first_name);
+        //     console.log(user.id);
+        //     console.log(user.last_name);
+
+        // }
+        // myFetch();
+
+        // Error Handling Fetch API dengan Async Await
+        // const myFetch = async () => {
+        //     let response = await fetch('https://reqres.in/api/users/x');
+        //     if (!response.ok) {
+        //         throw new Error(`Terjadi gangguan dengan kode: ${response.status}`);
+        //     }
+        //     let data = await response.json();
+        //     let user = data.data;
+
+        //     console.log(user.avatar);
+        //     console.log(user.email);
+        //     console.log(user.first_name);
+        //     console.log(user.id);
+        //     console.log(user.last_name);
+
+        // }
+        // myFetch().catch(error => console.log(error));
+
+        // Error Handling Fetch API dengan Async Await dg try catch
+        const myFetch = async () => {
+            try{
+                let response = await fetch('https://reqres.in/api/users/1');
+                if (!response.ok) {
+                    throw new Error(`Terjadi gangguan dengan kode: ${response.status}`);
+                }
+                let data = await response.json();
+                let user = data.data;
+    
+                console.log(user.avatar);
+                console.log(user.email);
+                console.log(user.first_name);
+                console.log(user.id);
+                console.log(user.last_name);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        myFetch();
+
+    </script>
+</body>
+</html>
