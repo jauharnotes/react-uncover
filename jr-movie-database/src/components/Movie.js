@@ -56,8 +56,6 @@ const Movie = (props) => {
   };
   return (
     <div className="movie-container col-6 col-md-4 col-xl-3 mb-5">
-      {console.log(props.movie)}
-
       <img
         src={getImage()}
         alt={props.movie.title}
