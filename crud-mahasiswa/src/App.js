@@ -2,35 +2,7 @@ import React, { useEffect, useState } from 'react';
 import RowMahasiswa from './components/RowMahasiswa';
 import RowTambahMahasiswa from './components/RowTambahMahasiswa';
 
-// Data awal tabel mahasiswa
-// const arrMahasiswas = [
-//   {
-//     nim: "18010245",
-//     nama: "Eka Putra",
-//     jurusan: "Teknik Informatika",
-//     asalProvinsi: "DKI Jakarta"
-//   },
-//   {
-//     nim: "19010214",
-//     nama: "Lisa Permata",
-//     jurusan: "Sistem Informasi",
-//     asalProvinsi: "Sumatera Barat"
-//   },
-//   {
-//     nim: "20010710",
-//     nama: "Rudi Setiawan",
-//     jurusan: "Ilmu Komputer",
-//     asalProvinsi: "Jawa Tengah"
-//   },
-//   {
-//     nim: "20010790",
-//     nama: "Friska Ramadhani",
-//     jurusan: "Ilmu Komputer",
-//     asalProvinsi: "Kalimantan Barat"
-//   }
-// ];
-
-let url = "https://crud-mahasiswa-app-default-rtdb.asia-southeast1.firebasedatabase.app/mahsiswas.json";
+let url = "https://crud-mahasiswa-app-default-rtdb.asia-southeast1.firebasedatabase.app/mahasiswas.json";
 
 const App = () => {
   const [mahasiswas, setMahasiswas] = useState([]);
@@ -84,7 +56,6 @@ const App = () => {
       method: "DELETE"
     });
     setSubmitCount(submitCount + 1);
-    console.log(e.target.id);
   }
 
   return (
