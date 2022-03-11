@@ -94,7 +94,7 @@ const RowMahasiswa = (props) => {
 
     // proses data jika form valid
     if (formValid) {
-      props.onEditMahasiswa(formInput);
+      props.onEditMahasiswa(props.mahasiswa.id, formInput);
       setEditStatus(false);
     }
   }
@@ -146,7 +146,7 @@ const RowMahasiswa = (props) => {
           <td>
             <button className="btn btn-secondary me-2"
               onClick={handleEditClick}>Edit</button>
-            <button className="btn btn-danger" id={formInput.nim}
+            <button className="btn btn-danger" id={props.mahasiswa.id}
             onClick={props.onHapusMahasiswa}>Hapus</button>
           </td>
         </tr>

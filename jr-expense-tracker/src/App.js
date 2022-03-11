@@ -62,7 +62,7 @@ const App = () => {
     // handler untuk menghapus data transaction di komponen AddTransaction
     const handleHapusTransaction = async (e) => {
       // Rangkai alamat URL agar berisi id data yang dihapus
-      let url = `https://jr-expense-trackers-default-rtdb.asia-southeast1.firebasedatabase.app/transaction/${e.target.id}.json`;
+      let url = `https://jr-expense-trackers-default-rtdb.asia-southeast1.firebasedatabase.app/transaction/${e.target.}.json`;
 
       // Kirim delete request ke server (firebase)
       try {

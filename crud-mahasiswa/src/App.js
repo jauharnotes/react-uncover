@@ -1,78 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RowMahasiswa from './components/RowMahasiswa';
 import RowTambahMahasiswa from './components/RowTambahMahasiswa';
 
 // Data awal tabel mahasiswa
-const arrMahasiswas = [
-  {
-    nim: "18010245",
-    nama: "Eka Putra",
-    jurusan: "Teknik Informatika",
-    asalProvinsi: "DKI Jakarta"
-  },
-  {
-    nim: "19010214",
-    nama: "Lisa Permata",
-    jurusan: "Sistem Informasi",
-    asalProvinsi: "Sumatera Barat"
-  },
-  {
-    nim: "20010710",
-    nama: "Rudi Setiawan",
-    jurusan: "Ilmu Komputer",
-    asalProvinsi: "Jawa Tengah"
-  },
-  {
-    nim: "20010790",
-    nama: "Friska Ramadhani",
-    jurusan: "Ilmu Komputer",
-    asalProvinsi: "Kalimantan Barat"
-  }
-];
+// const arrMahasiswas = [
+//   {
+//     nim: "18010245",
+//     nama: "Eka Putra",
+//     jurusan: "Teknik Informatika",
+//     asalProvinsi: "DKI Jakarta"
+//   },
+//   {
+//     nim: "19010214",
+//     nama: "Lisa Permata",
+//     jurusan: "Sistem Informasi",
+//     asalProvinsi: "Sumatera Barat"
+//   },
+//   {
+//     nim: "20010710",
+//     nama: "Rudi Setiawan",
+//     jurusan: "Ilmu Komputer",
+//     asalProvinsi: "Jawa Tengah"
+//   },
+//   {
+//     nim: "20010790",
+//     nama: "Friska Ramadhani",
+//     jurusan: "Ilmu Komputer",
+//     asalProvinsi: "Kalimantan Barat"
+//   }
+// ];
+
+let url = "https://crud-mahasiswa-app-default-rtdb.asia-southeast1.firebasedatabase.app/mahsiswas.json";
 
 const App = () => {
-  const [mahasiswas, setMahasiswas] = useState(arrMahasiswas);
+  const [mahasiswas, setMahasiswas] = useState([]);
+  const [submitCount, setSubmitCount] = useState(0);
+
+  useEffect(() => {
+    const myFetch = async () => {
+      let response = await fetch(url);
+      let responseData = await response.json();
+
+      const initMahasiswa = [];
+      for (const key in responseData) {
+        initMahasiswa.push({
+          id: key,
+          nim: responseData[key].nim,
+          nama: responseData[key].nama,
+          jurusan: responseData[key].jurusan,
+          asalProvinsi: responseData[key].asalProvinsi,
+        });
+      }
+      setMahasiswas(initMahasiswa);
+    }
+    myFetch();
+  }, [submitCount]);
 
   // handler untuk menambah data mahasiswa, 
   // akan di-trigger dari komponen RowTambahMahasiswa
-  const handleTambahMahasiswa = (data) => {
-    const newMahasiswas = [
-      ...mahasiswas, data
-    ];
-    setMahasiswas(newMahasiswas);
+  const handleTambahMahasiswa = async (data) => {
+    await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+    setSubmitCount(submitCount + 1);
   }
 
   // handler untuk mengedit data mahasiswa
   // akan di-trigger dari komponen RowMahasiswa
-  const handleEditMahasiswa = (data) => {
-    // cari index dari mahasiswa yang akan diedit berdasarkan nomor nim
-    const result = mahasiswas.findIndex(
-      (mahasiswa) => mahasiswa.nim === data.nim
-    );
-
-    // copy mahasiswas karena fungsi splice akan mengubah array asal (mutate)
-    const newMahasiswas = mahasiswas;
-    newMahasiswas.splice(result, 1, data);
-    setMahasiswas([...newMahasiswas]);
-
-    // !! jika hanya menggunakan setMahasiswas(newMahasiswas), 
-    // react tidak akan me-re-render halaman karena 
-    // newMahasiswas = mahasiswa masih merujuk ke object yang sama.
+  const handleEditMahasiswa = async (id, data) => {
+      let url = `https://crud-mahasiswa-app-default-rtdb.asia-southeast1.firebasedatabase.app/mahasiswas/${id}.json`;
+      await fetch(url, {
+        method: "PUT",
+        body: JSON.stringify(data)
+      });
+      setSubmitCount(submitCount + 1);
   }
 
   // handler untuk menghapus data mahasiswa di komponent RowMahasiswa
-  const handleHapusMahasiswa = (e) => {
-    // cari index dari mahasiswa yang dihapus berdasarkan nomor nim
-    const result = mahasiswas.findIndex((mahasiswa) => mahasiswa.nim === e.target.id);
-
-    // copy mahasiswa karena fungsi spilice akan mengubah array asal (mutet)
-    const newMahasiswas = mahasiswas;
-    newMahasiswas.splice(result, 1);
-    setMahasiswas([...newMahasiswas]);
-
-    // cara alternatif penghapusan dengan method filter
-    // const newMahasiswas = mahasiswas.filter(mahasiswa => mahasiswa.nim !== e.target.id);
-    // setMahasiswas(newMahasiswas);
+  const handleHapusMahasiswa = async (e) => {
+    let url = `https://crud-mahasiswa-app-default-rtdb.asia-southeast1.firebasedatabase.app/mahasiswas/${e.target.id}.json`;
+    await fetch(url, {
+      method: "DELETE"
+    });
+    setSubmitCount(submitCount + 1);
+    console.log(e.target.id);
   }
 
   return (
